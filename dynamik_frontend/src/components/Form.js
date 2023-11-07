@@ -59,7 +59,7 @@ export default function Form({ onAddDevs }) {
         value={stack}
         onChange={(e) => setStack(e.target.value)}
       />
-      <button>Add</button>
+      <button className="btn-add">Add</button>
     </form>
   );
 }

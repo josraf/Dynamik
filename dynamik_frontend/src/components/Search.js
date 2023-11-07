@@ -17,10 +17,11 @@ function Search({ onSearchDevs }) {
 
   return (
     <input
+      className="search"
       type="text"
+      placeholder="Search Developers..."
       value={searchQuery}
       onChange={handleInputChange}
-      placeholder="Search Developers..."
     />
   );
 }

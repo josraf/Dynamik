@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [devs, setDevs] = useState([]);
+  const [devsSearched, setDevsSearched] = useState(0);
 
   useEffect(() => {
     refreshDevsList();
@@ -26,7 +27,9 @@ function App() {
   }
 
   function handleSearchDevs(query) {
-    axios.get(`http://localhost:3001/api/devs/${query}`).then((res) => {});
+    axios.get(`http://localhost:3001/api/devs/${query}`).then((res) => {
+      setDevsSearched(res.data);
+    });
   }
 
   function handleDeleteDev(dev) {
@@ -35,11 +38,67 @@ function App() {
     });
   }
 
+  function NavBar({ children }) {
+    return (
+      <nav className="nav-bar">
+        <Logo />
+        {children}
+      </nav>
+    );
+  }
+
+  function Logo() {
+    return (
+      <div className="logo">
+        <span role="img">👨‍💻</span>
+        <h1>Dynamik Exercise</h1>
+      </div>
+    );
+  }
+  function NumResults() {
+    return (
+      <p className="num-results">
+        Found <strong>{devsSearched.length}</strong> results
+      </p>
+    );
+  }
+
+  function Main({ children }) {
+    return <main className="main">{children}</main>;
+  }
+
+  function Box({ children }) {
+    const [isOpen, setIsOpen] = useState(true);
+
+    return (
+      <div className="box">
+        <button
+          className="btn-toggle"
+          onClick={() => setIsOpen((open) => !open)}
+        >
+          {isOpen ? "–" : "+"}
+        </button>
+
+        {isOpen && children}
+      </div>
+    );
+  }
+
   return (
     <div className="App">
-      <Form onAddDevs={handleAddDevs} />
-      <DevsList onDeleteDev={handleDeleteDev} onDevsList={devs} />
-      <Search onSearchDevs={handleSearchDevs} />
+      <NavBar>
+        <Search onSearchDevs={handleSearchDevs} />
+        {devsSearched ? <NumResults /> : null}
+      </NavBar>
+      <Main>
+        <Box>
+          <DevsList onDeleteDev={handleDeleteDev} onDevsList={devs} />
+        </Box>
+
+        <Box>
+          <Form onAddDevs={handleAddDevs} />
+        </Box>
+      </Main>
     </div>
   );
 }

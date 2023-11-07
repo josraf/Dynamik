@@ -2,68 +2,98 @@ const express = require("express");
 const Model = require("../models/model");
 const router = express.Router();
 
-module.exports = router;
-router.use(express.json());
+// Error handling function
+const handleRouteError = (res, error) => {
+  console.error(error.message);
+  res.status(500).json({ message: "Internal Server Error" });
+};
 
-//Post Method
+// Create a dev
 router.post("/devs", async (req, res) => {
-  const data = new Model({
-    name: req.body.name,
-    nickname: req.body.nickname,
-    birth_date: req.body.birth_date,
-    stack: req.body.stack,
-  });
-
   try {
+    const { name, nickname, birth_date, stack } = req.body.dev;
+    const data = new Model({ name, nickname, birth_date, stack });
     const dataToSave = await data.save();
     res.status(200).json(dataToSave);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    handleRouteError(res, error);
   }
 });
 
-//Get all Method
+// Get all devs
 router.get("/devs", async (req, res) => {
   try {
     const data = await Model.find();
     res.json(data);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleRouteError(res, error);
   }
 });
 
-//Get by ID Method
-router.get("/devs/:id", async (req, res) => {
+// Get devs by search terms
+router.get("/devs/:terms", async (req, res) => {
   try {
-    const data = await Model.findById(req.params.id);
+    const terms = req.params.terms;
+
+    // Check if terms can be parsed into a valid date
+    const date = new Date(terms);
+
+    // Create an array to store the search conditions
+    const searchConditions = [
+      { name: { $regex: terms, $options: "i" } },
+      { nickname: { $regex: terms, $options: "i" } },
+      { stack: { $regex: terms, $options: "i" } },
+    ];
+
+    if (!isNaN(date.getTime())) {
+      // If it's a valid date, add the date-based search condition
+      searchConditions.push({ birth_date: date });
+    }
+
+    // Construct the final query using $or for all conditions
+    const query = {
+      $or: searchConditions,
+    };
+
+    const data = await Model.find(query);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-//Update by ID Method
-router.patch("/update/:id", async (req, res) => {
+// Get dev by ID
+router.get("/devs/id/:id", async (req, res) => {
   try {
-    const id = req.params.id;
+    const data = await Model.findById(req.params.id);
+    res.json(data);
+  } catch (error) {
+    handleRouteError(res, error);
+  }
+});
+
+// Update dev by ID
+router.patch("/devs/update/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
     const updatedData = req.body;
     const options = { new: true };
-
     const result = await Model.findByIdAndUpdate(id, updatedData, options);
-
     res.send(result);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    handleRouteError(res, error);
   }
 });
 
-//Delete by ID Method
-router.delete("/delete/:id", async (req, res) => {
+// Delete dev by ID
+router.delete("/devs/delete/:id", async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const data = await Model.findByIdAndDelete(id);
-    res.send(`Dev with the nickname ${data.name} has been deleted..`);
+    res.send(`Dev with the nickname ${data.name} has been deleted.`);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    handleRouteError(res, error);
   }
 });
+
+module.exports = router;

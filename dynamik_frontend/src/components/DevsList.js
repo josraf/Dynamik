@@ -1,16 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 
-export default function PersonList({ onDeleteDev }) {
-  const [devs, setDevs] = useState([]);
+export default function PersonList({ onDeleteDev, onDevsList }) {
   const [details, setDetails] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/api/devs")
-      .then((res) => setDevs(res.data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
 
   const onChosenDev = (dev) => {
     setDetails(dev);
@@ -22,8 +13,8 @@ export default function PersonList({ onDeleteDev }) {
 
   return (
     <ul>
-      {devs.map((dev) => (
-        <li key={dev.id}>
+      {onDevsList.map((dev) => (
+        <li key={dev._id}>
           {dev.name}
           <button onClick={() => onChosenDev(dev)}>Show Details</button>
           <button onClick={() => handleDeleteDev(dev)}>❌</button>

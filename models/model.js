@@ -15,7 +15,7 @@ const dataSchema = new mongoose.Schema({
   },
   stack: {
     required: true,
-    type: String,
+    type: [String],
   },
 });
 

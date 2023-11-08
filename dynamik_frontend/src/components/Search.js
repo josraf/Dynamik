@@ -2,7 +2,7 @@ import axios from "axios";
 import debounce from "lodash/debounce";
 import React, { useCallback, useState } from "react";
 
-function Search({ onSearchDevs }) {
+function Search({ onSearchDevs, refreshDevsList }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const debouncedHandleSearch = useCallback(
@@ -24,7 +24,7 @@ function Search({ onSearchDevs }) {
 
   const handleRemoveSearch = () => {
     setSearchQuery(""); // Clear the search query
-    onSearchDevs(""); // Trigger the search with an empty query
+    refreshDevsList();
   };
 
   return (

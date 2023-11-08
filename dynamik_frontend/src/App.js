@@ -58,7 +58,10 @@ function App() {
   return (
     <div className="App">
       <NavBar>
-        <Search onSearchDevs={handleSearchDevs} />
+        <Search
+          onSearchDevs={handleSearchDevs}
+          refreshDevsList={refreshDevsList}
+        />
         {devsSearched ? <NumResults /> : null}
       </NavBar>
       <Main>

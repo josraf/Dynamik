@@ -1,8 +1,11 @@
-import DevsList from "./components/DevsList.js";
+import axios from "axios";
+import Box from "./components/Box.js";
+import Main from "./components/Main.js";
 import Form from "./components/Form.js";
 import Search from "./components/Search.js";
-import axios from "axios";
+import NavBar from "./components/NavBar.js";
 import { useState, useEffect } from "react";
+import DevsList from "./components/DevsList.js";
 
 function App() {
   const [devs, setDevs] = useState([]);
@@ -33,11 +36,9 @@ function App() {
     });
   }
 
-  function handleSearchDevs(query) {
-    axios.get(`http://localhost:3001/api/devs/${query}`).then((res) => {
-      setDevsSearched(res.data);
-      setDevs(res.data);
-    });
+  function handleSearchDevs(data) {
+    setDevsSearched(data);
+    setDevs(data);
   }
 
   function handleDeleteDev(dev) {
@@ -46,49 +47,11 @@ function App() {
     });
   }
 
-  function NavBar({ children }) {
-    return (
-      <nav className="nav-bar">
-        <Logo />
-        {children}
-      </nav>
-    );
-  }
-
-  function Logo() {
-    return (
-      <div className="logo">
-        <span role="img">👨‍💻</span>
-        <h1>Dynamik Exercise</h1>
-      </div>
-    );
-  }
   function NumResults() {
     return (
       <p className="num-results">
         Found <strong>{devsSearched.length}</strong> results
       </p>
-    );
-  }
-
-  function Main({ children }) {
-    return <main className="main">{children}</main>;
-  }
-
-  function Box({ children }) {
-    const [isOpen, setIsOpen] = useState(true);
-
-    return (
-      <div className="box">
-        <button
-          className="btn-toggle"
-          onClick={() => setIsOpen((open) => !open)}
-        >
-          {isOpen ? "–" : "+"}
-        </button>
-
-        {isOpen && children}
-      </div>
     );
   }
 

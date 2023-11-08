@@ -157,8 +157,8 @@ li p {
 }
 
 .list img {
-  width: 100%;
-  grid-row: 1 / -1;
+  width: 75px;
+  height: auto;
 }
 
 .list h3 {
@@ -177,39 +177,58 @@ li p {
   gap: 0.8rem;
 }
 
+.listToShow {
+  display: flex !important;
+  flex-direction: row;
+  width: 100%;
+}
+
 .btn-details {
-  height: 1.8rem;
   aspect-ratio: 1;
   border-radius: 50%;
   border: none;
   background-color: white;
   color: var(--color-background-900);
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s;
+  width: 30px;
+  height: 30px;
 }
-.dev-info {
-  position: relative;
-}
+
 .buttons {
   display: flex;
-  align-items: center;
+  align-content: center;
+}
+
+.cenas {
+  display: flex;
+  flex-direction: column;
+}
+
+.dev-details {
+  display: row;
+  justify-content: center;
+  align-content: center;
+  font-size: 1.2rem;
+  margin: 20px;
 }
 
 .btn-delete {
   right: 2.4rem;
-
   height: 1.8rem;
   aspect-ratio: 1;
   border-radius: 50%;
   border: none;
   background-color: var(--color-red);
   color: var(--color-background-900);
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s;
+  width: 30px;
+  height: 30px;
 }
 
 .btn-delete:hover {

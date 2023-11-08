@@ -23,8 +23,8 @@ export default function DevList({
 
   function Dev({ dev }) {
     return (
-      <>
-        <li>
+      <div className="cenas">
+        <div className="listToShow">
           <img src={DevImage} alt={`${dev.name} dev`} />
           <div className="dev-info">
             <h3>{dev.name}</h3>
@@ -36,31 +36,29 @@ export default function DevList({
                 className="btn-delete"
                 onClick={() => handleDeleteDev(dev)}
               >
-                X
+                🗑️
               </button>
             </div>
           </div>
+        </div>
+        <div>
           {onDevDetails && onDevDetails._id === dev._id ? (
-            <ul>
-              <li>
+            <div className="dev-details">
+              <div>
                 <span>{onDevDetails.nickname}</span>
-              </li>
-              <li>
+              </div>
+              <div>
                 <span>{onDevDetails.stack}</span>
-              </li>
-              {formattedDate ? (
-                <li>
-                  <span>{formattedDate}</span>
-                </li>
-              ) : (
-                <></>
-              )}
-            </ul>
+              </div>
+              <div>
+                <span>{formattedDate}</span>
+              </div>
+            </div>
           ) : (
             <></>
           )}
-        </li>
-      </>
+        </div>
+      </div>
     );
   }
 

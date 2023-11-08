@@ -35,10 +35,8 @@ router.get("/devs/:terms", async (req, res) => {
   try {
     const terms = req.params.terms;
 
-    // Check if terms can be parsed into a valid date
     const date = new Date(terms);
 
-    // Create an array to store the search conditions
     const searchConditions = [
       { name: { $regex: terms, $options: "i" } },
       { nickname: { $regex: terms, $options: "i" } },
@@ -46,11 +44,9 @@ router.get("/devs/:terms", async (req, res) => {
     ];
 
     if (!isNaN(date.getTime())) {
-      // If it's a valid date, add the date-based search condition
       searchConditions.push({ birth_date: date });
     }
 
-    // Construct the final query using $or for all conditions
     const query = {
       $or: searchConditions,
     };

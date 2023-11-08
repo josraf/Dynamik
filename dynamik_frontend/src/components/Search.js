@@ -1,3 +1,4 @@
+import axios from "axios";
 import debounce from "lodash/debounce";
 import React, { useCallback, useState } from "react";
 
@@ -5,9 +6,15 @@ function Search({ onSearchDevs }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const debouncedHandleSearch = useCallback(
-    debounce((query) => onSearchDevs(query), 1000),
+    debounce((query) => handleSearch(query), 1000),
     []
   );
+
+  const handleSearch = (query) => {
+    axios.get(`http://localhost:3001/api/devs/${query}`).then((res) => {
+      onSearchDevs(res.data);
+    });
+  };
 
   const handleInputChange = (e) => {
     const query = e.target.value;

@@ -15,14 +15,24 @@ function Search({ onSearchDevs }) {
     debouncedHandleSearch(query);
   };
 
+  const handleRemoveSearch = () => {
+    setSearchQuery(""); // Clear the search query
+    onSearchDevs(""); // Trigger the search with an empty query
+  };
+
   return (
-    <input
-      className="search"
-      type="text"
-      placeholder="Search Developers..."
-      value={searchQuery}
-      onChange={handleInputChange}
-    />
+    <div>
+      <input
+        className="search"
+        type="text"
+        placeholder="Search Developers..."
+        value={searchQuery}
+        onChange={handleInputChange}
+      />
+      <button className="btn-add" onClick={handleRemoveSearch}>
+        X
+      </button>
+    </div>
   );
 }
 

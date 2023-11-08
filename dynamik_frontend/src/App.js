@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 function App() {
   const [devs, setDevs] = useState([]);
   const [devsSearched, setDevsSearched] = useState(0);
+  const [devDetails, setDevDetails] = useState(0);
 
   useEffect(() => {
     refreshDevsList();
@@ -26,9 +27,16 @@ function App() {
     });
   }
 
+  function handleDetailsDev(dev) {
+    axios.get(`http://localhost:3001/api/dev/${dev}`).then((res) => {
+      setDevDetails(res.data);
+    });
+  }
+
   function handleSearchDevs(query) {
     axios.get(`http://localhost:3001/api/devs/${query}`).then((res) => {
       setDevsSearched(res.data);
+      setDevs(res.data);
     });
   }
 
@@ -92,7 +100,12 @@ function App() {
       </NavBar>
       <Main>
         <Box>
-          <DevsList onDeleteDev={handleDeleteDev} onDevsList={devs} />
+          <DevsList
+            onDeleteDev={handleDeleteDev}
+            onDetailsDev={handleDetailsDev}
+            onDevsList={devs}
+            onDevDetails={devDetails}
+          />
         </Box>
 
         <Box>

@@ -23,7 +23,7 @@ router.post("/devs", async (req, res) => {
 // Get all devs
 router.get("/devs", async (req, res) => {
   try {
-    const data = await Model.find();
+    const data = await Model.find().select("_id name");
     res.json(data);
   } catch (error) {
     handleRouteError(res, error);
@@ -63,7 +63,7 @@ router.get("/devs/:terms", async (req, res) => {
 });
 
 // Get dev by ID
-router.get("/devs/id/:id", async (req, res) => {
+router.get("/dev/:id", async (req, res) => {
   try {
     const data = await Model.findById(req.params.id);
     res.json(data);

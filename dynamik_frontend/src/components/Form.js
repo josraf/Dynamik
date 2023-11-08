@@ -4,7 +4,7 @@ export default function Form({ onAddDevs }) {
   const [name, setName] = useState("");
   const [nickname, setNickname] = useState("");
   const [birth_date, setBirthDate] = useState("2023/05/20");
-  const [stack, setStack] = useState([]);
+  const [stacks, setStacks] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -15,7 +15,7 @@ export default function Form({ onAddDevs }) {
       name: name,
       nickname: nickname,
       birth_date: birth_date,
-      stack: stack,
+      stack: stacks,
     };
 
     onAddDevs(newDev);
@@ -23,43 +23,100 @@ export default function Form({ onAddDevs }) {
     setName("");
     setNickname("");
     setBirthDate("2023/05/20");
-    setStack([]);
+    setStacks("");
   }
 
+  function handleCancel(e) {
+    setName("");
+    setNickname("");
+    setBirthDate("20/05/2023");
+    setStacks("");
+  }
+
+  const handleStackChange = (e) => {
+    const inputValue = e.target.value;
+    const stackArray = inputValue.split(",").map((stack) => stack.trim());
+
+    const hasInvalidStack = stackArray.some((stack) => stack.length > 32);
+
+    if (!hasInvalidStack) {
+      setStacks(inputValue);
+    }
+  };
+
   return (
-    <form className="add-form" onSubmit={handleSubmit}>
-      <h3>Create your dev 👨‍💻</h3>
-      <input
-        type="text"
-        placeholder="John..."
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        max={32}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Jony..."
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
-        max={100}
-        required
-      />
-      <input
-        type="date"
-        placeholder="2023/05/20..."
-        value={birth_date}
-        onChange={(e) => setBirthDate(e.target.value)}
-        format="YYYY-MM-DD"
-        required
-      />
-      <input
-        type="text"
-        placeholder="React..."
-        value={stack}
-        onChange={(e) => setStack(e.target.value)}
-      />
-      <button className="btn-add">Add</button>
-    </form>
+    <div className="summary">
+      <h2>Create your developer profile 👨‍💻</h2>
+      <form className="add-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label className="label-left" htmlFor="name">
+            Full Name:
+          </label>
+          <input
+            className="input-right"
+            type="text"
+            id="name"
+            placeholder="John Cena"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            maxLength={32}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="label-left" htmlFor="nickname">
+            Nickname:
+          </label>
+          <input
+            className="input-right"
+            type="text"
+            id="nickname"
+            placeholder="Jony123"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            maxLength={100}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="label-left" htmlFor="birth_date">
+            Birth Date:
+          </label>
+          <input
+            className="input-right"
+            type="date"
+            id="birth_date"
+            placeholder="20-05-2023"
+            value={birth_date}
+            onChange={(e) => setBirthDate(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="label-left" htmlFor="stack">
+            Stack:
+          </label>
+          <textarea
+            className="input-right"
+            id="stack"
+            placeholder="Enter stack, separated by commas"
+            value={stacks}
+            onChange={handleStackChange}
+          />
+        </div>
+
+        <div className="button-group">
+          <button className="btn-cancel" onClick={handleCancel}>
+            Cancel
+          </button>
+          <button className="btn-add" type="submit">
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

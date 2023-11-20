@@ -1,5 +1,11 @@
 import React from "react";
-import DevImage from "../img/dev.png";
+import DevImage from "../img/dog.jpg";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 export default function DevList({
   onDeleteDev,
@@ -24,49 +30,48 @@ export default function DevList({
   function Dev({ dev }) {
     return (
       <div className="cenas">
-        <div className="listToShow">
-          <img src={DevImage} alt={`${dev.name} dev`} />
-          <div className="dev-info">
-            <h3>{dev.name}</h3>
-            <div className="buttons">
-              <button className="btn-details" onClick={() => onChosenDev(dev)}>
-                👁️
-              </button>
-              <button
-                className="btn-delete"
-                onClick={() => handleDeleteDev(dev)}
-              >
-                🗑️
-              </button>
-            </div>
-          </div>
-        </div>
-        <div>
-          {onDevDetails && onDevDetails._id === dev._id ? (
-            <div className="dev-details">
-              <div>
-                <span>{onDevDetails.nickname}</span>
-              </div>
-              <div>
-                <span>{onDevDetails.stack}</span>
-              </div>
-              <div>
-                <span>{formattedDate}</span>
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
+        <Card sx={{ maxWidth: 345 }}>
+          <CardMedia
+            component="img"
+            alt="green iguana"
+            height="140"
+            image={DevImage}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {dev.name}
+            </Typography>
+            {onDevDetails && onDevDetails._id === dev._id ? (
+              <>
+                <Typography variant="body1" color="text.secondary">
+                  {onDevDetails.nickname}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  {onDevDetails.stack}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  {formattedDate}
+                </Typography>
+              </>
+            ) : (
+              <></>
+            )}
+          </CardContent>
+          <CardActions>
+            <Button size="small" onClick={() => onChosenDev(dev)}>
+              Learn More
+            </Button>
+          </CardActions>
+        </Card>
       </div>
     );
   }
 
   return (
-    <ul className="list list-devs">
+    <>
       {onDevsList?.map((dev) => (
         <Dev dev={dev} key={dev._id} />
       ))}
-    </ul>
+    </>
   );
 }

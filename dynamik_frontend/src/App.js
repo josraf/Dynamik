@@ -66,16 +66,16 @@ function App() {
       </NavBar>
       <Main>
         <Box>
+          <Form onAddDevs={handleAddDevs} />
+        </Box>
+
+        <Box>
           <DevsList
             onDeleteDev={handleDeleteDev}
             onDetailsDev={handleDetailsDev}
             onDevsList={devs}
             onDevDetails={devDetails}
           />
-        </Box>
-
-        <Box>
-          <Form onAddDevs={handleAddDevs} />
         </Box>
       </Main>
     </div>

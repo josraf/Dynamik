@@ -6,6 +6,7 @@ import Search from "./components/Search.js";
 import NavBar from "./components/NavBar.js";
 import { useState, useEffect } from "react";
 import DevsList from "./components/DevsList.js";
+import { set } from "lodash";
 
 function App() {
   const [devs, setDevs] = useState([]);
@@ -69,14 +70,16 @@ function App() {
           <Form onAddDevs={handleAddDevs} />
         </Box>
 
-        <Box>
-          <DevsList
-            onDeleteDev={handleDeleteDev}
-            onDetailsDev={handleDetailsDev}
-            onDevsList={devs}
-            onDevDetails={devDetails}
-          />
-        </Box>
+        <div className="box-specific">
+          <Box>
+            <DevsList
+              onDeleteDev={handleDeleteDev}
+              onDetailsDev={handleDetailsDev}
+              onDevsList={devs}
+              onDevDetails={devDetails}
+            />
+          </Box>
+        </div>
       </Main>
     </div>
   );

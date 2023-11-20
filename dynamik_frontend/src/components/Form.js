@@ -57,8 +57,7 @@ export default function Form({ onAddDevs }) {
       <form className="pretty-form" onSubmit={handleSubmit}>
         <h2>Create your developer profile 👨‍💻</h2>
         <TextField
-          sx={{ mb: 1, mt: 1 }}
-          className="form_field"
+          sx={{ mb: 1, mt: 1, backgroundColor: "white" }}
           label="Full Name"
           variant="outlined"
           fullWidth
@@ -71,8 +70,7 @@ export default function Form({ onAddDevs }) {
         />
 
         <TextField
-          sx={{ mb: 1, mt: 1 }}
-          className="form_field"
+          sx={{ mb: 1, mt: 1, backgroundColor: "white" }}
           label="Nickname"
           variant="outlined"
           fullWidth
@@ -86,7 +84,7 @@ export default function Form({ onAddDevs }) {
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            sx={{ mb: 1, mt: 1 }}
+            sx={{ mb: 1, mt: 1, backgroundColor: "white" }}
             label="Birth date"
             onChange={setBirthDate}
             required
@@ -95,8 +93,7 @@ export default function Form({ onAddDevs }) {
         </LocalizationProvider>
 
         <TextField
-          sx={{ mb: 1, mt: 1 }}
-          className="form_field"
+          sx={{ mb: 1, mt: 1, backgroundColor: "white" }}
           label="Enter stack, separated by commas"
           variant="outlined"
           fullWidth
@@ -107,7 +104,9 @@ export default function Form({ onAddDevs }) {
         />
 
         <div className="button-group">
-          <Button onClick={handleCancel}>Cancel</Button>
+          <Button onClick={handleCancel} color="secondary">
+            Cancel
+          </Button>
           <Button className="btn-add" variant="contained" type="submit">
             Add
           </Button>

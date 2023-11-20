@@ -7,7 +7,7 @@
   --color-text-dark: #adb5bd;
   --color-background-100: #ffffff;
   --color-background-500: #ffffff;
-  --color-background-900: #ffffff;
+  --color-background-900: aliceblue;
   --color-red: #fa5252;
   --color-red-dark: #e03131;
 }
@@ -46,18 +46,21 @@ li p {
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   height: 7.2rem;
-  padding: 0 3.2rem;
+  padding: 0 2.5rem;
   background-color: var(--color-primary);
   box-shadow: 0 4px 6px -6px #222;
 }
+
 .pretty-form {
   display: flex;
   flex-direction: column;
   max-width: 400px;
   margin: 0 auto;
-  padding: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: aliceblue;
 }
 
 label {
@@ -92,16 +95,21 @@ button:hover {
   margin-top: 2.4rem;
   height: calc(100vh - 7.2rem - 3 * 2.4rem);
   display: flex;
-  gap: 27.4rem;
+  gap: 2rem;
 }
 
 .box {
   width: 42rem;
   max-width: 42rem;
-  background-color: var(--color-background-500);
+  background-color: aliceblue;
   border-radius: 0.9rem;
   overflow: scroll;
   position: relative;
+}
+
+.box-specific {
+  position: relative;
+  left: 255px;
 }
 
 /* ******* */
@@ -119,12 +127,23 @@ button:hover {
 .logo h1 {
   font-size: 2.4rem;
   font-weight: 600;
-  color: black;
+  color: var(--color-primary-light);
 }
 
 .search-container {
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+.search-container::placeholder {
+  color: var(--color-text-dark);
+}
+
+.search-container:focus {
+  outline: none;
+  box-shadow: 0 2.4rem 2.4rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 .search-wrapper {
@@ -152,19 +171,10 @@ button:hover {
   pointer-events: none; /* To make the icon 'unclickable' */
 }
 
-.search-container::placeholder {
-  color: var(--color-text-dark);
-}
-
-.search-container:focus {
-  outline: none;
-  box-shadow: 0 2.4rem 2.4rem rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
-
 .num-results {
   justify-self: end;
   font-size: 1.8rem;
+  color: var(--color-primary-light);
 }
 
 .btn-toggle {
@@ -252,7 +262,7 @@ button:hover {
   align-content: center;
 }
 
-.cenas {
+.main-content {
   display: flex;
   flex-direction: column;
 }
@@ -332,21 +342,6 @@ button:hover {
 
 .btn-cancel:hover {
   background-color: var(--color-secondary-light);
-}
-
-.pretty-card {
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out;
-  background-color: #fff;
-  width: 300px;
-  height: auto;
-  margin-bottom: 20px;
-}
-
-.pretty-card:hover {
-  transform: translateY(-5px);
 }
 
 .card-image {

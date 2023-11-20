@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import Grid from "@mui/material/Grid";
 
 export default function DevList({
   onDeleteDev,
@@ -32,7 +33,7 @@ export default function DevList({
 
   function Dev({ dev }) {
     return (
-      <div className="cenas">
+      <div className="main-content">
         <Card sx={{ maxWidth: 345, mb: 1, mt: 1 }}>
           <CardMedia
             component="img"
@@ -80,9 +81,13 @@ export default function DevList({
 
   return (
     <>
-      {onDevsList?.map((dev) => (
-        <Dev dev={dev} key={dev._id} />
-      ))}
+      <Grid container spacing={2}>
+        {onDevsList?.map((dev) => (
+          <Grid item xs={12} sm={6} md={6} lg={6} key={dev._id}>
+            <Dev dev={dev} key={dev._id} />
+          </Grid>
+        ))}
+      </Grid>
     </>
   );
 }

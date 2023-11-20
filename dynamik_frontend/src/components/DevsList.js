@@ -6,6 +6,9 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 
 export default function DevList({
   onDeleteDev,
@@ -30,7 +33,7 @@ export default function DevList({
   function Dev({ dev }) {
     return (
       <div className="cenas">
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 345, mb: 1, mt: 1 }}>
           <CardMedia
             component="img"
             alt="green iguana"
@@ -43,15 +46,16 @@ export default function DevList({
             </Typography>
             {onDevDetails && onDevDetails._id === dev._id ? (
               <>
-                <Typography variant="body1" color="text.secondary">
-                  {onDevDetails.nickname}
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                  {onDevDetails.stack}
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                  {formattedDate}
-                </Typography>
+                <Divider />{" "}
+                <ListItem>
+                  <ListItemText primary={"🥸 " + onDevDetails.nickname} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary={"💻 " + onDevDetails.stack} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary={"📅 " + formattedDate} />
+                </ListItem>
               </>
             ) : (
               <></>
@@ -60,6 +64,13 @@ export default function DevList({
           <CardActions>
             <Button size="small" onClick={() => onChosenDev(dev)}>
               Learn More
+            </Button>
+            <Button
+              size="small"
+              color="error"
+              onClick={() => handleDeleteDev(dev)}
+            >
+              Delete
             </Button>
           </CardActions>
         </Card>

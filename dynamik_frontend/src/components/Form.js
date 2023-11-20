@@ -57,6 +57,7 @@ export default function Form({ onAddDevs }) {
       <form className="pretty-form" onSubmit={handleSubmit}>
         <h2>Create your developer profile 👨‍💻</h2>
         <TextField
+          sx={{ mb: 1, mt: 1 }}
           className="form_field"
           label="Full Name"
           variant="outlined"
@@ -70,6 +71,7 @@ export default function Form({ onAddDevs }) {
         />
 
         <TextField
+          sx={{ mb: 1, mt: 1 }}
           className="form_field"
           label="Nickname"
           variant="outlined"
@@ -83,12 +85,17 @@ export default function Form({ onAddDevs }) {
         />
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DatePicker"]}>
-            <DatePicker label="Birth date" onChange={setBirthDate} required />
-          </DemoContainer>
+          <DatePicker
+            sx={{ mb: 1, mt: 1 }}
+            label="Birth date"
+            onChange={setBirthDate}
+            required
+            renderInput={(params) => <TextField {...params} fullWidth />}
+          />
         </LocalizationProvider>
 
         <TextField
+          sx={{ mb: 1, mt: 1 }}
           className="form_field"
           label="Enter stack, separated by commas"
           variant="outlined"

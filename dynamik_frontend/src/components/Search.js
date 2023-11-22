@@ -1,6 +1,8 @@
 import axios from "axios";
 import debounce from "lodash/debounce";
 import React, { useCallback, useState } from "react";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
 
 function Search({ onSearchDevs, refreshDevsList }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,16 +31,15 @@ function Search({ onSearchDevs, refreshDevsList }) {
 
   return (
     <div>
-      <input
-        className="search"
-        type="text"
-        placeholder="Search Developers..."
-        value={searchQuery}
-        onChange={handleInputChange}
-      />
-      <button className="btn-add" onClick={handleRemoveSearch}>
-        X
-      </button>
+      <div className="search-container">
+        <TextField
+          label="🔎 Search Developers..."
+          variant="outlined"
+          fullWidth
+          value={searchQuery}
+          onChange={handleInputChange}
+        />
+      </div>
     </div>
   );
 }

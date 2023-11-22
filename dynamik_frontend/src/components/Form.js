@@ -1,4 +1,10 @@
 import { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 export default function Form({ onAddDevs }) {
   const [name, setName] = useState("");
@@ -22,15 +28,17 @@ export default function Form({ onAddDevs }) {
 
     setName("");
     setNickname("");
-    setBirthDate("2023/05/20");
+    setBirthDate(null);
     setStacks("");
   }
 
-  function handleCancel(e) {
-    setName("");
-    setNickname("");
-    setBirthDate("20/05/2023");
-    setStacks("");
+  function handleCancel() {
+    if (window.confirm("Are you sure?")) {
+      setName("");
+      setNickname("");
+      setBirthDate(null);
+      setStacks("");
+    }
   }
 
   const handleStackChange = (e) => {
@@ -45,78 +53,65 @@ export default function Form({ onAddDevs }) {
   };
 
   return (
-    <div className="summary">
-      <h2>Create your developer profile 👨‍💻</h2>
-      <form className="add-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="label-left" htmlFor="name">
-            Full Name:
-          </label>
-          <input
-            className="input-right"
-            type="text"
-            id="name"
-            placeholder="John Cena"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            maxLength={32}
-            required
-          />
-        </div>
+    <>
+      <form className="pretty-form" onSubmit={handleSubmit}>
+        <h2>Create your developer profile 👨‍💻</h2>
+        <TextField
+          sx={{ mb: 1, mt: 1, backgroundColor: "white" }}
+          label="Full Name"
+          variant="outlined"
+          fullWidth
+          id="name"
+          placeholder="John Cena"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          maxLength={32}
+          required
+        />
 
-        <div className="form-group">
-          <label className="label-left" htmlFor="nickname">
-            Nickname:
-          </label>
-          <input
-            className="input-right"
-            type="text"
-            id="nickname"
-            placeholder="Jony123"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-            maxLength={100}
-            required
-          />
-        </div>
+        <TextField
+          sx={{ mb: 1, mt: 1, backgroundColor: "white" }}
+          label="Nickname"
+          variant="outlined"
+          fullWidth
+          id="nickname"
+          placeholder="Jony123"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+          maxLength={100}
+          required
+        />
 
-        <div className="form-group">
-          <label className="label-left" htmlFor="birth_date">
-            Birth Date:
-          </label>
-          <input
-            className="input-right"
-            type="date"
-            id="birth_date"
-            placeholder="20-05-2023"
-            value={birth_date}
-            onChange={(e) => setBirthDate(e.target.value)}
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            sx={{ mb: 1, mt: 1, backgroundColor: "white" }}
+            label="Birth date"
+            onChange={setBirthDate}
             required
+            renderInput={(params) => <TextField {...params} fullWidth />}
           />
-        </div>
+        </LocalizationProvider>
 
-        <div className="form-group">
-          <label className="label-left" htmlFor="stack">
-            Stack:
-          </label>
-          <textarea
-            className="input-right"
-            id="stack"
-            placeholder="Enter stack, separated by commas"
-            value={stacks}
-            onChange={handleStackChange}
-          />
-        </div>
+        <TextField
+          sx={{ mb: 1, mt: 1, backgroundColor: "white" }}
+          label="Enter stack, separated by commas"
+          variant="outlined"
+          fullWidth
+          id="stack"
+          placeholder="Enter stack, separated by commas"
+          value={stacks}
+          onChange={handleStackChange}
+        />
 
         <div className="button-group">
-          <button className="btn-cancel" onClick={handleCancel}>
+          <Button onClick={handleCancel} color="secondary">
             Cancel
-          </button>
-          <button className="btn-add" type="submit">
+          </Button>
+          <Button className="btn-add" variant="contained" type="submit">
             Add
-          </button>
+          </Button>
         </div>
       </form>
-    </div>
+    </>
   );
 }

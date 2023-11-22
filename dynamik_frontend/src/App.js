@@ -6,6 +6,7 @@ import Search from "./components/Search.js";
 import NavBar from "./components/NavBar.js";
 import { useState, useEffect } from "react";
 import DevsList from "./components/DevsList.js";
+import DetailsCard from "./components/DetailsCards.js";
 
 function App() {
   const [devs, setDevs] = useState([]);
@@ -66,17 +67,20 @@ function App() {
       </NavBar>
       <Main>
         <Box>
-          <DevsList
-            onDeleteDev={handleDeleteDev}
-            onDetailsDev={handleDetailsDev}
-            onDevsList={devs}
-            onDevDetails={devDetails}
-          />
-        </Box>
-
-        <Box>
           <Form onAddDevs={handleAddDevs} />
         </Box>
+
+        <div className="box-specific">
+          <Box>
+            <DevsList
+              onDeleteDev={handleDeleteDev}
+              onDetailsDev={handleDetailsDev}
+              onDevsList={devs}
+            />
+          </Box>
+        </div>
+
+        {devDetails ? <DetailsCard onDevDetails={devDetails} /> : <></>}
       </Main>
     </div>
   );

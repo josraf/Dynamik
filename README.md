@@ -4,13 +4,31 @@ Está aqui o exercício pedido. O backend está MongoDB, sendo que ao nível da 
 
 ## Table of Contents
 
+- [IMPORTANT](#important)
 - [About](#about)
+- [Stacks](#stacks)
 - [Features](#features)
 - [Installation](#installation)
+
+
+## IMPORTANT
+
+Deixei disponível o .env, como anteriormente referido, para já terem uma base de dados de MongoDB com tudo criado. PORÉM, tenho consciência que este nunca deve estar disponível por questões de dados sensíveis!
 
 ## About
 
 Visto o exercício ter mais incidência em backend houve maior foco neste e o frontend é básico usando as cores da empresa. Quanto aos pontos extra valorizados, por falta de tempo e experiência com Docker esse não foi concretizado, porém, foi feito em Cypress um teste end-to-end do search. 
+
+## Stacks
+
+- Versão de node: 18.17.0
+- Versão de React: ^18.2.0
+- Versão de Cors: ^2.8.5
+- Versão de Axios: ^0.24.0
+- Versão de lodash: ^4.17.21
+- Versão de mongoose: ^8.0.0
+- Versão de express: ^4.18.2
+
 
 ## Features
 

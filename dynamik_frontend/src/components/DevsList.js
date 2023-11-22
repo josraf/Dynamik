@@ -2,30 +2,16 @@ import React from "react";
 import DevImage from "../img/dog.jpg";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
-export default function DevList({
-  onDeleteDev,
-  onDetailsDev,
-  onDevsList,
-  onDevDetails,
-}) {
+export default function DevList({ onDeleteDev, onDetailsDev, onDevsList }) {
   const onChosenDev = (dev) => {
     onDetailsDev(dev._id);
   };
-  const date = new Date(onDevDetails.birth_date);
-  const formattedDate = `${date.getDate().toString().padStart(2, "0")}-${(
-    date.getMonth() + 1
-  )
-    .toString()
-    .padStart(2, "0")}-${date.getFullYear()}`;
 
   const handleDeleteDev = (dev) => {
     if (window.confirm("Are you sure?")) onDeleteDev(dev._id);
@@ -45,22 +31,6 @@ export default function DevList({
             <Typography gutterBottom variant="h5" component="div">
               {dev.name}
             </Typography>
-            {onDevDetails && onDevDetails._id === dev._id ? (
-              <>
-                <Divider />{" "}
-                <ListItem>
-                  <ListItemText primary={"🥸 " + onDevDetails.nickname} />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary={"💻 " + onDevDetails.stack} />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary={"📅 " + formattedDate} />
-                </ListItem>
-              </>
-            ) : (
-              <></>
-            )}
           </CardContent>
           <CardActions>
             <Button size="small" onClick={() => onChosenDev(dev)}>

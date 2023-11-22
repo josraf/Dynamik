@@ -6,7 +6,7 @@ import Search from "./components/Search.js";
 import NavBar from "./components/NavBar.js";
 import { useState, useEffect } from "react";
 import DevsList from "./components/DevsList.js";
-import { set } from "lodash";
+import DetailsCard from "./components/DetailsCards.js";
 
 function App() {
   const [devs, setDevs] = useState([]);
@@ -76,10 +76,11 @@ function App() {
               onDeleteDev={handleDeleteDev}
               onDetailsDev={handleDetailsDev}
               onDevsList={devs}
-              onDevDetails={devDetails}
             />
           </Box>
         </div>
+
+        {devDetails ? <DetailsCard onDevDetails={devDetails} /> : <></>}
       </Main>
     </div>
   );
